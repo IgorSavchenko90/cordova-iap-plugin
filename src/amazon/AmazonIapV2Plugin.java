@@ -1,5 +1,5 @@
 
-/* 
+/*
 * Copyright 2014 Amazon.com,
 * Inc. or its affiliates. All Rights Reserved.
 *
@@ -51,31 +51,31 @@ public class AmazonIapV2Plugin extends CordovaPlugin implements AndroidResources
 
     private volatile CordovaInterface cordova;
     private AmazonIapV2JavaControllerImpl sdkController = null;
-    
+
     public AmazonIapV2Plugin() {
-            
+
     }
-    
+
     public AmazonIapV2JavaControllerImpl getSdkController() {
         return this.sdkController;
     }
-    
+
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
         this.cordova = cordova;
-        Context context = ((CordovaActivity)cordova.getActivity()).getApplicationContext();
+        Context context = this.cordova.getActivity().getApplicationContext();
         sdkController = AmazonIapV2JavaControllerImpl.newInstance(context);
         this.sdkController.setAndroidResources((AndroidResources)this);
         this.sdkController.setSdkEventListener((SdkEventListener)this);
-        this.sdkController.registerToJavaService();        
+        this.sdkController.registerToJavaService();
     }
 
     @Override
     public Activity getCurrentAndroidActivity() {
         return this.cordova.getActivity();
     }
-    
+
     @Override
     public CrossPlatformTool getCrossPlatformTool() {
         return CrossPlatformTool.CORDOVA;
@@ -154,7 +154,7 @@ public class AmazonIapV2Plugin extends CordovaPlugin implements AndroidResources
 
         public abstract boolean execute(JSONArray args, CallbackContext callbackContext, AmazonIapV2Plugin plugin);
     }
-    
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         try {
@@ -208,9 +208,9 @@ public class AmazonIapV2Plugin extends CordovaPlugin implements AndroidResources
                                                     resultToSend.setKeepCallback(true);
                                             }
                         ret = true;
-                    }            
+                    }
                 }
-            }    
+            }
             if (resultToSend != null) {
                 callbackContext.sendPluginResult(resultToSend);
             }
